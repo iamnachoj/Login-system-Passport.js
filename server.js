@@ -28,6 +28,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+//middleware passport local strategy
 const initializePassport = require("./passport");
 initializePassport(
   passport,
@@ -71,7 +72,7 @@ app.post(
 );
 app.delete("/logout", (req, res) => {
   req.logOut();
-  req.redirect("/login");
+  res.redirect("/login");
 });
 
 //check if user is authenticated
