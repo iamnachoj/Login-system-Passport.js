@@ -12,7 +12,7 @@ The final app is a fully functional login system that can be used in any future 
 - bcrypt
 - Passportjs
 - Ejs template system
-- few other dependencies. check out package.json to see full modules and versions.
+- few other dependencies. check out package.json to see all the modules and its versions.
 
 # Key Features
 - Server with Node.js and Express
