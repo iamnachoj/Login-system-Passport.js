@@ -38,16 +38,13 @@ initializePassport(
 app.get("/", checkAuthenticated, (req, res) => {
   res.render("index.ejs", { name: req.user.name });
 });
-
-app.get("/login", (req, res) => {
+app.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("login.ejs");
 });
-
-app.get("/register", (req, res) => {
+app.get("/register", checkNotAuthenticated, (req, res) => {
   res.render("register.ejs");
 });
-
-app.post("/register", async (req, res) => {
+app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     users.push({
@@ -64,12 +61,17 @@ app.post("/register", async (req, res) => {
 });
 app.post(
   "/login",
+  checkNotAuthenticated,
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true,
   })
 );
+app.delete("/logout", (req, res) => {
+  req.logOut();
+  req.redirect("/login");
+});
 
 //check if user is authenticated
 function checkAuthenticated(req, res, next) {
@@ -77,6 +79,14 @@ function checkAuthenticated(req, res, next) {
     return next();
   }
   res.redirect("/login");
+}
+
+//check if user not authenticated
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+  next();
 }
 
 //server listen
