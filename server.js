@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+const methodOverride = require("method-override");
 //database simulation
 let users = [];
 
@@ -15,7 +16,7 @@ let users = [];
 app.set("view-engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
-
+app.use(methodOverride("_method"));
 app.use(flash());
 app.use(
   session({
