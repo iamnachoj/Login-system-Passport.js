@@ -24,3 +24,6 @@ The final app is a fully functional login system that can be used in any future 
 EJS is used for templating and HTML forms. 
 Database could potentially be added, but in order to keep project simple, I just store user info in a variable within server.js file.
 
+## Setup guide:
+clone the repository: git clone xxxx
+Change directory: cd xxx
